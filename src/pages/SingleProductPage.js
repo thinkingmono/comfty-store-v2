@@ -39,7 +39,7 @@ const SingleProductPage = () => {
     return <Error />
   }
 
-  console.log(product);
+  // console.log(product);
 
   const { name, price, description, stock, stars, reviews, id: sku, company, images } = product;
 
