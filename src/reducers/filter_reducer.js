@@ -68,8 +68,50 @@ const filter_reducer = (state, action) => {
   }
 
   if (action.type === FILTER_PRODUCTS) {
-    console.log('Filtering products');
-    return { ...state }
+    const { all_products } = state;
+    const { text, company, category, color, price, shipping } = state.filters;
+    let tempProducts = [...all_products];
+    if (text) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.name.toLowerCase().startsWith(text);
+      })
+    }
+    if (category !== 'all') {
+      tempProducts = tempProducts.filter((product) => {
+        // console.log(product);
+        return category === product.category;
+      })
+    }
+
+    if (company !== 'all') {
+      tempProducts = tempProducts.filter((product) => {
+        // console.log(product);
+        return company === product.company;
+      })
+    }
+
+    if (color !== 'all') {
+      // console.log(color);
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.includes(color);
+        // return product.colors.find(col => color === col);
+      })
+    }
+
+    if (price) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.price <= price;
+      })
+    }
+
+    if (shipping) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.shipping === true;
+      })
+    }
+
+    // console.log(tempProducts);
+    return { ...state, filtered_products: tempProducts }
   }
 
   if (action.type === CLEAR_FILTERS) {
