@@ -1,3 +1,4 @@
+//Import pages to export it from here.
 import Home from './HomePage'
 import About from './AboutPage'
 import Cart from './CartPage'

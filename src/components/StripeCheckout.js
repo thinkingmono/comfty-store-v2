@@ -13,13 +13,19 @@ import { useUserContext } from '../context/user_context'
 import { formatPrice } from '../utils/helpers'
 import { useNavigate } from 'react-router-dom'
 
+//loadStripe with stripe's account public key and store it into a promise const.
 const promise = loadStripe(process.env.REACT_APP_AUTH_STRIPE_PUBLIC_KEY);
 
+//Checkout form component.
 const CheckoutForm = () => {
+  //Destructure cart, total_amount, shipping_fee and clearCart from cart context.
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
+  //Destructure myUser from user context.
   const { myUser } = useUserContext();
+  //navigate declaration using useNavigate hook
   const navigate = useNavigate();
 
+  //Stripe values declaration as a state variables.
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -28,33 +34,43 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  //Function to send request to serverless function and set client secret token.
   const createPaymentIntent = async () => {
     try {
+      //Send post request using axios. Send to create payment intent function and pass cart, shipping_fee and total_amout gather in an object turned into a string. Store response and destructure data from stripe
       const { data } = await axios.post('/.netlify/functions/create-payment-intent', JSON.stringify({ cart, shipping_fee, total_amount }));
       // console.log(data.clientSecret);
+      //Set client secret token with the one destructure from response.
       setClientSecret(data.clientSecret);
     } catch (error) {
       // console.log(error.message);
     }
   }
 
+  //Run createPaymentIntent function when page loads.
   useEffect(() => {
     createPaymentIntent();
     //eslint-disable-next-line
   }, [])
 
+  //Handle stripe checkout fields change.
   const handleChange = async (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : '');
   }
+
+  //Handle stripe checkout submit
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     setProcessing(true);
+    //Send request to stripe to confirma card payment. Pass client secret token return from create payment intent and stripe's Card Element wich has credit card info.
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement)
       }
     })
+
+    //If there's an error in payload. throw error message. If there's no error set stripe states, clear cart and navigate to home.
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
@@ -69,6 +85,7 @@ const CheckoutForm = () => {
     }
   }
 
+  //Checkout form style.
   const cardStyle = {
     style: {
       base: {
@@ -88,23 +105,33 @@ const CheckoutForm = () => {
   };
 
   return <div>
-    {succeeded ? <article>
-      <h4>Thank you!</h4>
-      <h4>Your payment was successful!</h4>
-      <h4>Redirecting to home page shortly</h4>
-    </article> : <article>
-      <h4>Hello, {myUser && myUser.name}</h4>
-      <p>Your total is {formatPrice(shipping_fee + total_amount)}</p>
-      <p>Test Card Number: 4242 4242 4242 4242</p>
-    </article>}
+    {/* If transaction succeeded render thank you message. If not show checkout info to pay*/}
+    {succeeded ?
+      //Thank you message
+      <article>
+        <h4>Thank you!</h4>
+        <h4>Your payment was successful!</h4>
+        <h4>Redirecting to home page shortly</h4>
+      </article> :
+      //Checkout information to pay
+      <article>
+        <h4>Hello, {myUser && myUser.name}</h4>
+        <p>Your total is {formatPrice(shipping_fee + total_amount)}</p>
+        <p>Test Card Number: 4242 4242 4242 4242</p>
+      </article>}
+    {/* Stripe form */}
     <form id='payment-form' onSubmit={handleSubmit}>
+      {/* Stripes Card Field */}
       <CardElement id='card-element' options={cardStyle} onChange={handleChange} />
+      {/* Pay button */}
       <button disabled={processing || disabled || succeeded} id='submit'>
         <span id='button-text'>
           {processing ? <div className='spinner' id='spinner'></div> : 'Pay'}
         </span>
       </button>
+      {/* If there's an error display error message */}
       {error && <div className='card-error' role='alert'>{error}</div>}
+      {/* If transaction suceeded show result message with link to stripe panel. if not hide it. */}
       <p className={succeeded ? 'result-message' : 'result-message hidden'}>Payment succeeded, see the result in your
         <a href="https://dashboard.stripe.com/test/payments" target='_blank'> Stripe dashboard </a>
         Refresh the page to pay again
@@ -113,6 +140,7 @@ const CheckoutForm = () => {
   </div>
 }
 
+//Stripe Checkout Component. Render stripe Elements component wrapping CheckoutForm. Pass promise with public key into stripe prop.
 const StripeCheckout = () => {
   return (
     <Wrapper>
@@ -123,6 +151,7 @@ const StripeCheckout = () => {
   )
 }
 
+//Component style
 const Wrapper = styled.section`
   form {
     width: 30vw;

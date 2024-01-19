@@ -8,33 +8,43 @@ import CartButtons from './CartButtons'
 import { useProductsContext } from '../context/products_context'
 import { useUserContext } from '../context/user_context'
 
+//Navbar component
 const Nav = () => {
+  //Destructure openSidebar from products context
   const { openSidebar } = useProductsContext();
+  //Destructure myUser from user context.
   const { myUser } = useUserContext();
+
   return (
     <NavContainer>
       <div className="nav-center">
+        {/* Logo and Hamburguer Menu (Mobile) */}
         <div className="nav-header">
           <Link to='/'>
             <img src={logo} alt='Comfy Store' />
           </Link>
           <button type="button" className='nav-toggle' onClick={openSidebar}><FaBars /></button>
         </div>
+        {/* Navigation Links */}
         <ul className='nav-links'>
+          {/* Map over links to render them on screen */}
           {links.map((link) => {
             const { id, text, url } = link;
             return <li key={id}>
               <Link to={url}>{text}</Link>
             </li>
           })}
+          {/* If there's an user logged render checkout link. */}
           {myUser && <li><Link to='/checkout'>Checkout</Link></li>}
         </ul>
+        {/* Cart and login/out buttons */}
         <CartButtons />
       </div>
     </NavContainer>
   )
 }
 
+//Component style
 const NavContainer = styled.nav`
   height: 5rem;
   display: flex;

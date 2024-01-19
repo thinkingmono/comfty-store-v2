@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+//Single product page. Product images. Destructure images from props. Set images default value if doesn't have one to an array with an object with an empty url.
 const ProductImages = ({ images = [{ url: '' }] }) => {
+  //main state variable declaration to store product main image. Initialize to first element in images array.
   const [main, setMain] = useState(images[0]);
-  // console.log(main);
   return <Wrapper>
+    {/* Product's main image */}
     <img src={main.url} alt='main image' className='main' />
+    {/* Product images. Map over images array to render each image. when click set image as new main image and give it an active class*/}
     <div className="gallery">
       {images.map((image, index) => {
         return <img src={image.url} alt={image.filename} key={index} onClick={() => setMain(images[index])} className={`${image.url === main.url ? 'active' : null}`} />
@@ -14,6 +17,7 @@ const ProductImages = ({ images = [{ url: '' }] }) => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   .main {
     height: 600px;

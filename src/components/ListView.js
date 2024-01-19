@@ -2,10 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+
+//Products page list view component. Destructure products from props.
 const ListView = ({ products }) => {
   return <Wrapper>
+    {/* Map over products to render it as an list item */}
     {products.map((product) => {
+      //Destructure product info from product.
       const { id, image, name, price, description } = product;
+      //Render product using JSX and destructured properties.
       return (
         <article key={id}>
           <img src={image} alt={name} />
@@ -21,6 +26,7 @@ const ListView = ({ products }) => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   display: grid;
   row-gap: 3rem;

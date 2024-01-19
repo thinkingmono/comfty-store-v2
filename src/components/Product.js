@@ -4,10 +4,13 @@ import { formatPrice } from '../utils/helpers'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
+//Product Component for Grid View. Destructure product info from props.
 const Product = ({ image, name, id, price }) => {
   return <Wrapper>
     <div className="container">
+      {/* Product image */}
       <img src={image} alt={name} />
+      {/* Onhover icon to send user to single page product info */}
       <Link to={`/products/${id}`} className='link'><FaSearch /></Link>
     </div>
     <footer>
@@ -17,6 +20,7 @@ const Product = ({ image, name, id, price }) => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.article`
   .container {
     position: relative;

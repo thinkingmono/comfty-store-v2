@@ -6,31 +6,45 @@ import { useProductsContext } from '../context/products_context'
 import { useCartContext } from '../context/cart_context'
 import { useUserContext } from '../context/user_context'
 
+//Navbar's (Desktop) and Sidebar's (Mobile) cart and login/out button.
 const CartButtons = () => {
+  //Destructure closeSidebar from product context.
   const { closeSidebar } = useProductsContext();
+  //Destructure total_items and clearCart from cart context
   const { total_items, clearCart } = useCartContext();
+  //Destructure loginWithRedirect, logout and myUser from user context.
   const { loginWithRedirect, logout, myUser } = useUserContext();
+
   return (
+    //Buttons container
     <Wrapper className='cart-btn-wrapper'>
+      {/* Cart link to send user to cart page. Close side bar when click. (Mobile) */}
       <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
         Cart
         <span className="cart-container">
           <FaShoppingCart />
+          {/* Cart total items display */}
           <span className="cart-value">{total_items}</span>
         </span>
       </Link>
+      {/* Render login or logout based in if there is an user logged*/}
       {myUser ? <button type="button" className='auth-btn' onClick={() => {
+        //Clear cart when click
         clearCart();
+        //Call logout, pass return to app home.
         logout({ returnTo: window.location.origin })
       }}>
         Logout <FaUserMinus />
-      </button> : <button type="button" className='auth-btn' onClick={loginWithRedirect}>
-        Login <FaUserPlus />
-      </button>}
+      </button> :
+        //Login button. Enable Auth0 login when click.
+        <button type="button" className='auth-btn' onClick={loginWithRedirect}>
+          Login <FaUserPlus />
+        </button>}
     </Wrapper>
   )
 }
 
+//Component style.
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

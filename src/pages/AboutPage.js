@@ -3,11 +3,15 @@ import styled from 'styled-components'
 import { PageHero } from '../components'
 import aboutImg from '../assets/hero-bcg.jpeg'
 
+//About page
 const AboutPage = () => {
   return <main>
+    {/* Breadcrumb */}
     <PageHero title='About' />
     <Wrapper className='page section section-center'>
+      {/* Image */}
       <img src={aboutImg} alt='nice desk' />
+      {/* Text */}
       <article>
         <div className="title">
           <h2>Our History</h2>
@@ -19,6 +23,7 @@ const AboutPage = () => {
   </main>
 }
 
+//Component style
 const Wrapper = styled.section`
   display: grid;
   gap: 4rem;

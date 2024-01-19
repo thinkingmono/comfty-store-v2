@@ -5,18 +5,30 @@ import AmountButtons from './AmountButtons'
 import { FaTrash } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
 
+//Cart product component. Destructure product info from props.
 const CartItem = ({ id, name, color, amount, image, price }) => {
+  //Destructure removeItem and toggleAmount from cart context
   const { removeItem, toggleAmount } = useCartContext();
+
+  //Increase funtion to handle increase product quantity.
   const increase = () => {
+    //Call toggleAmount function to handle quantity change. Pass id and increase identify string
     toggleAmount(id, 'inc');
   }
+
+  //Decrease funtion to handle increase product quantity.
   const decrease = () => {
+    //Call toggleAmount function to handle quantity change. Pass id and descrease identify string
     toggleAmount(id, 'dec');
   }
 
+  //Component JSX
   return <Wrapper>
+    {/* First column. Product main info */}
     <div className="title">
+      {/* Product Image */}
       <img src={image} alt={name} />
+      {/* Product name, color, price for mabile devices */}
       <div>
         <h5 className="name">{name}</h5>
         <p className="color">
@@ -25,13 +37,18 @@ const CartItem = ({ id, name, color, amount, image, price }) => {
         <h5 className="price-small">{formatPrice(price)}</h5>
       </div>
     </div>
+    {/* Product Unit Price */}
     <h5 className="price">{formatPrice(price)}</h5>
+    {/* Quantity with amount buttons. Pass current amount, increase and decrease function to handle amount change into component */}
     <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+    {/* Subtotal by product row . Takes product quantity times unit price to define it */}
     <h5 className="subtotal">{formatPrice(price * amount)}</h5>
+    {/* Remove product from cart. Pass removeItem into onClicks call back function. */}
     <button type="button" className='remove-btn' onClick={() => removeItem(id)}><FaTrash /></button>
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.article`
   .subtotal {
     display: none;

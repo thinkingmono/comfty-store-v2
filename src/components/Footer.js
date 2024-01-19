@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+
+//App footer component.
 const Footer = () => {
   return <Wrapper>
     <h5>
@@ -10,6 +12,7 @@ const Footer = () => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.footer`
   height: 5rem;
   display: flex;

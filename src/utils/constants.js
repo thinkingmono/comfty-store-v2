@@ -1,5 +1,7 @@
 import React from 'react'
 import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi'
+
+//Navigation links array
 export const links = [
   {
     id: 1,
@@ -18,6 +20,7 @@ export const links = [
   },
 ]
 
+//Home services info module
 export const services = [
   {
     id: 1,
@@ -42,6 +45,8 @@ export const services = [
   },
 ]
 
+//API to fetch products
 export const products_url = 'https://course-api.com/react-store-products'
 
+//API to fetch single product info
 export const single_product_url = `https://course-api.com/react-store-single-product?id=`

@@ -1,16 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+
+//Breadcrumb component. Destructure title and products from props.
 const PageHero = ({ title, products }) => {
   return <Wrapper>
     <div className="section-center">
       <h3><Link to='/'>Home</Link>
+        {/* If parent provides products prop render products link */}
         {products && <Link to='/products'>/ Products</Link>}
         / {title}</h3>
     </div>
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   background: var(--clr-primary-10);
   width: 100%;

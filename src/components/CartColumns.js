@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+//Cart products list table headers.
 const CartColumns = () => {
   return <Wrapper>
     <div className="content">
@@ -14,6 +15,7 @@ const CartColumns = () => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.div`
   display: none;
   @media (min-width: 776px) {

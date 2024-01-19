@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import heroBcg from '../assets/hero-bcg.jpeg'
 import heroBcg2 from '../assets/hero-bcg-2.jpeg'
 
+//Main monster banner
 const Hero = () => {
   return <Wrapper className='section-center'>
     <article className="content">
@@ -19,6 +20,7 @@ const Hero = () => {
   </Wrapper>
 }
 
+//Component style.
 const Wrapper = styled.section`
   min-height: 60vh;
   display: grid;

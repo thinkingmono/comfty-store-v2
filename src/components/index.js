@@ -1,3 +1,4 @@
+//Import components to export it from here.
 import FeaturedProducts from './FeaturedProducts'
 import Navbar from './Navbar'
 import CartButtons from './CartButtons'

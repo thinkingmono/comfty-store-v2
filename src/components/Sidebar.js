@@ -8,30 +8,40 @@ import styled from 'styled-components'
 import CartButtons from './CartButtons'
 import { useUserContext } from '../context/user_context'
 
+//Sidebar (Mobile Menu)
 const Sidebar = () => {
+  //Destructure isSidebarOpen and closeSidebar from product context
   const { isSidebarOpen, closeSidebar } = useProductsContext();
+  //Destructure myUser from user context.
   const { myUser } = useUserContext();
   return (
     <SidebarContainer>
+      {/* set aside class based in isSidebarOpen state to show or hide component */}
       <aside className={isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}>
+        {/* Header. Logo and close sidebar button */}
         <div className="sidebar-header">
           <img src={logo} alt='Comfy Sloth' className='logo' />
           <button type="button" className='close-btn' onClick={closeSidebar}><FaTimes /></button>
         </div>
+        {/* Navigation links */}
         <ul className='links'>
+          {/* Map over links array. Destructure id, url and text from single product in callback function. Render as a link*/}
           {links.map(({ id, url, text }) => {
             return <Link key={id} to={url} onClick={closeSidebar}>{text}</Link>
           })}
+          {/* If there's an user logged display checkout link */}
           {myUser &&
             <Link to='/checkout' onClick={closeSidebar}>Checkout</Link>
           }
         </ul>
+        {/* Cart and login/out buttons */}
         <CartButtons />
       </aside>
     </SidebarContainer>
   )
 }
 
+//Component style
 const SidebarContainer = styled.div`
   text-align: center;
   .sidebar-header {

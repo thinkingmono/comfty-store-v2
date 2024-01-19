@@ -4,7 +4,9 @@ import { useFilterContext } from '../context/filter_context'
 import { getUniqueValues, formatPrice } from '../utils/helpers'
 import { FaCheck } from 'react-icons/fa'
 
+//Products page filters.
 const Filters = () => {
+  //Destructure filters object, updateFilters, clearFilters and all_products from filter context.
   const {
     filters: {
       text,
@@ -18,38 +20,50 @@ const Filters = () => {
     }, updateFilters, clearFilters, all_products
   } = useFilterContext();
 
+  //unique categories array build with getUniqueValues function. Pass in all_products and type to filter unique categories
   const categories = getUniqueValues(all_products, 'category');
+  //unique companies array build with getUniqueValues function. Pass in all_products and type to filter unique companies
   const companies = getUniqueValues(all_products, 'company');
+  //unique colors array build with getUniqueValues function. Pass in all_products and type to filter unique colors
   const colors = getUniqueValues(all_products, 'colors');
 
   // console.log({ categories, companies, colors });
   // console.log(categories);
 
+  //Filters
   return <Wrapper>
     <div className="content">
+      {/* Filters form */}
       <form onSubmit={(e) => e.preventDefault()}>
+        {/* Search field */}
         <div className="form-control">
           <input type="text" name="text" id="text" placeholder='search' value={text} onChange={updateFilters} className='search-input' />
         </div>
+        {/* Categories buttons */}
         <div className="form-control">
           <h5>Categories</h5>
+          {/* Map over unique categories array return button for each categorie. Set active class based in current category and render category comparison */}
           {categories.map((cat, index) => {
             return <button type="button" name='category' key={index} className={`${category === cat.toLowerCase() ? 'active' : null}`} onClick={updateFilters}>
               {cat}
             </button>
           })}
         </div>
+        {/* Companies select field */}
         <div className="form-control">
           <h5>Companies</h5>
           <select name='company' className='company' value={company} onChange={updateFilters}>
+            {/* Map over unique companies to render each company as an option for the select */}
             {companies.map((com, index) => {
               return <option value={com} key={index}>{com}</option>
             })}
           </select>
         </div>
+        {/* Colors buttons */}
         <div className="form-control">
           <h5>Colors</h5>
           <div className="colors">
+            {/* Map over colors array and render them as a button. If color is all render text button. Other case, render color spot*/}
             {colors.map((col, index) => {
               if (col === 'all') {
                 return <button type="button" key={index} name='color' className={`${color === col ? 'all-btn active' : 'all-btn'}`} onClick={updateFilters} data-color='all'>All</button>
@@ -60,21 +74,26 @@ const Filters = () => {
             })}
           </div>
         </div>
+        {/* Price range field */}
         <div className="form-control">
           <h5>Price</h5>
           <p className="price">{formatPrice(price)}</p>
+          {/* Price range configure Set minimum to min_price value, set max to max_price value */}
           <input type="range" name='price' min={min_price} max={max_price} onChange={updateFilters} value={price} />
         </div>
+        {/* Shipping checkbox */}
         <div className="form-control shipping">
           <label htmlFor="shipping">Free Shipping</label>
           <input type="checkbox" name="shipping" id="shipping" checked={shipping} onChange={updateFilters} />
         </div>
       </form>
+      {/* Clear filters button field. */}
       <button type="button" className='clear-btn' onClick={clearFilters}>Clear Filters</button>
     </div>
   </Wrapper>
 }
 
+//Component field
 const Wrapper = styled.section`
   .form-control {
     margin-bottom: 1.25rem;

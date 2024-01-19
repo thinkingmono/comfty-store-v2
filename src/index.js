@@ -12,6 +12,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
+    //Wrap entire application into Auth0 Provider to enable user authentication in all app.
+    //Provide domain and client id environment variables. store authentication into browser's local storage
     <Auth0Provider
         domain={process.env.REACT_APP_AUTH_DOMAIN}
         clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
@@ -20,9 +22,13 @@ root.render(
         }}
         cacheLocation='localstorage'
     >
+        {/* User context */}
         <UserProvider>
+            {/* Products context */}
             <ProductsProvider>
+                {/* Filter context */}
                 <FilterProvider>
+                    {/* Cart context */}
                     <CartProvider>
                         <App />
                     </CartProvider>

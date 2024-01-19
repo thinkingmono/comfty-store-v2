@@ -2,15 +2,21 @@ import React from 'react'
 import { useFilterContext } from '../context/filter_context'
 import { BsFillGridFill, BsList } from 'react-icons/bs'
 import styled from 'styled-components'
+
+//Products page sort and view selectors component.
 const Sort = () => {
+  //Destructure state properties from filter context
   const { filtered_products: products, grid_view, setGridView, setListView, sort, updateSort } = useFilterContext();
   return <Wrapper>
+    {/* View selector buttons */}
     <div className="btn-container">
       <button type="button" className={`${grid_view ? 'active' : null}`} onClick={setGridView}><BsFillGridFill /></button>
       <button type="button" className={`${!grid_view ? 'active' : null}`} onClick={setListView}><BsList /></button>
     </div>
+    {/* Products Quantity Displayed */}
     <p>{products.length} products found</p>
     <hr />
+    {/* Sort selector field */}
     <form>
       <label htmlFor="sort">Sort by</label>
       <select name="sort" id="sort" className='sort-input' value={sort} onChange={updateSort}>
@@ -23,6 +29,7 @@ const Sort = () => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   display: grid;
   grid-template-columns: auto auto 1fr auto;

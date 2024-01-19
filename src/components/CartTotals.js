@@ -5,22 +5,29 @@ import { useUserContext } from '../context/user_context'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 
+//Cart totals table component
 const CartTotals = () => {
+  //Destructure total_amount and shipping_fee from cart context
   const { total_amount, shipping_fee } = useCartContext();
+  //Destructure myUser and loginWithRedirect from user context
   const { myUser, loginWithRedirect } = useUserContext();
+
   return <Wrapper>
     <div>
+      {/* Totals table */}
       <article>
         <h5>subtotal: <span>{formatPrice(total_amount)}</span></h5>
         <p>shipping fee: <span>{formatPrice(shipping_fee)}</span></p>
         <hr />
         <h4>order total: {''} <span>{formatPrice(total_amount + shipping_fee)}</span></h4>
       </article>
+      {/* Check if theres an user logged if it is render checkout button, if not login button display*/}
       {myUser ? <Link to='/checkout' className='btn'>Proceed to checkout</Link> : <button type="button" className='btn' onClick={loginWithRedirect}>Login</button>}
     </div>
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   margin-top: 3rem;
   display: flex;

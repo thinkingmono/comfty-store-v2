@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { services } from '../utils/constants'
 
+//Home services module
 const Services = () => {
+  //JSX Return
   return <Wrapper>
     <div className='section-center'>
       <article className="header">
@@ -10,7 +12,9 @@ const Services = () => {
         built only for you</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus saepe odit ex repellendus? Corrupti aliquid molestias accusantium, amet ex laudantium animi officia assumenda illum tempora perspiciatis aut repudiandae ab accusamus.</p>
       </article>
+      {/* Services cards */}
       <div className='services-center'>
+        {/* Map over services array to render each services card. */}
         {services.map((service) => {
           const { id, icon, title, text } = service;
           return (
@@ -26,6 +30,7 @@ const Services = () => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   h3,
   h4 {

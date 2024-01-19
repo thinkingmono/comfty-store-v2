@@ -2,9 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Filters, ProductList, Sort, PageHero } from '../components'
 
+//Products Page
 const ProductsPage = () => {
   return <main>
+    {/* Breadcrumb */}
     <PageHero title='products' />
+    {/* Filters, Sort and Product List */}
     <Wrapper className='page'>
       <div className="section-center products">
         <Filters />
@@ -17,6 +20,7 @@ const ProductsPage = () => {
   </main>
 }
 
+//Component style
 const Wrapper = styled.div`
   .products {
     display: grid;

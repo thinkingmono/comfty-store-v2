@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+
+//Error page
 const ErrorPage = () => {
   return <Wrapper className='page-100'>
     <section>
@@ -13,6 +15,7 @@ const ErrorPage = () => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.main`
   background: var(--clr-primary-10);
   display: flex;

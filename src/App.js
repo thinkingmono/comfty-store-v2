@@ -5,15 +5,19 @@ import { Home, About, Cart, Checkout, Error, PrivateRoute, Products, SingleProdu
 
 function App() {
   return <>
+  {/* Router configuration */}
     <Router>
+      {/* Share Navbar (Desktop) and Sidebar (Mobile) in all routes*/}
       <Navbar />
       <Sidebar />
+      {/* Application routes */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='about' element={<About />} />
         <Route path='cart' element={<Cart />} />
         <Route path='products' element={<Products />} />
         <Route path='products/:id' element={<SingleProduct />} />
+        {/* Restrict checkout page access to logged users. */}
         <Route path='checkout' element={<PrivateRoute><Checkout /></PrivateRoute>} />
         <Route path='*' element={<Error />} />
       </Routes>

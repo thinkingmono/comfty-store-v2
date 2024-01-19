@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import Product from './Product'
 
+//Products page grid view. Destructure products from props.
 const GridView = ({ products }) => {
   return <Wrapper>
     <div className="products-container">
+      {/* Map over products to render each product as a Product component */}
       {products.map((product) => {
         return <Product key={product.id} {...product} />
       })}
@@ -12,6 +14,7 @@ const GridView = ({ products }) => {
   </Wrapper>
 }
 
+//Component style
 const Wrapper = styled.section`
   img {
     height: 175px;
