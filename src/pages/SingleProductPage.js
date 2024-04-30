@@ -48,7 +48,7 @@ const SingleProductPage = () => {
   }
 
   //Destructure product info from product.
-  const { name, price, description, stock, stars, reviews, id: sku, company, image } = product;
+  const { name, price, description, inventory: stock, stars, reviews, id: sku, company, image } = product;
   const imgObj = { url: image, filename: 'product image' }
   const imgArray = [imgObj]
 

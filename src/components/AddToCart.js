@@ -10,7 +10,7 @@ const AddToCart = ({ product }) => {
   //Destructure addTocart from cart context.
   const { addToCart } = useCartContext();
   //Destructure id, stock and colors from product passed into props.
-  const { id, stock, colors } = product;
+  const { id, inventory: stock, colors } = product;
   //mainColor state variable declaration to update product's default color. Initialize with first color from colors array.
   const [mainColor, setMainColor] = useState(colors[0]);
   //amount state variable declaration to update product's amount. Initialize in 1.

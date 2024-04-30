@@ -43,7 +43,7 @@ const CheckoutForm = () => {
       //Set client secret token with the one destructure from response.
       setClientSecret(data.clientSecret);
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   }
 
