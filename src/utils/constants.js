@@ -46,7 +46,7 @@ export const services = [
 ]
 
 //API to fetch products
-export const products_url = 'https://course-api.com/react-store-products'
+export const products_url = 'https://ecommerce-api-alejandrowebdev.onrender.com/api/v1/products'
 
 //API to fetch single product info
-export const single_product_url = `https://course-api.com/react-store-single-product?id=`
+export const single_product_url = `https://ecommerce-api-alejandrowebdev.onrender.com/api/v1/products/`

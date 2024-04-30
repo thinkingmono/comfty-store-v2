@@ -47,10 +47,10 @@ const SingleProductPage = () => {
     return <Error />
   }
 
-  // console.log(product);
-
   //Destructure product info from product.
-  const { name, price, description, stock, stars, reviews, id: sku, company, images } = product;
+  const { name, price, description, stock, stars, reviews, id: sku, company, image } = product;
+  const imgObj = { url: image, filename: 'product image' }
+  const imgArray = [imgObj]
 
   return <Wrapper>
     {/* Breadcrumb */}
@@ -60,7 +60,7 @@ const SingleProductPage = () => {
       <Link to='/products' className='btn'>Back to products</Link>
       <div className="product-center">
         {/* Product images */}
-        <ProductImages images={images} />
+        <ProductImages images={imgArray} />
         {/* Product information */}
         <section className="content">
           <h2>{name}</h2>
